@@ -7,7 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
-import { Error404Component } from './pages/error404/error404.component';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   declarations: [

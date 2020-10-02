@@ -52,10 +52,6 @@ Progress bar
   -o-transition: 5s all;
   transition: 5s all; }
 
-.btn {
-  padding: 8px 12px;
-}
-
 @-webkit-keyframes myanimation {
   from {
     width: 0; } }

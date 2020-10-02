@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { IncreasingComponent } from './increasing/increasing.component';
 
@@ -10,7 +11,8 @@ import { IncreasingComponent } from './increasing/increasing.component';
     IncreasingComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     IncreasingComponent

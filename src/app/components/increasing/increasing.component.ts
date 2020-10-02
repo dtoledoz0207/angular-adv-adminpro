@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-increasing',
@@ -8,11 +8,9 @@ import { Component } from '@angular/core';
 })
 export class IncreasingComponent {
 
-  progress: number = 80;
+  // @Input('progressValue') progress: number = 80;
+  @Input() progress: number = 80;
 
-  get getPercent() {
-    return `${this.progress}%`;
-  }
 
   changeValue(value: number) {
 

@@ -1,6 +1,6 @@
 <div class="input-group">
   <span class="input-group-btn">
-    <button class="btn btn-primary" style="padding: 8px 12px;" type="button" (click)="changeValue(-5)">
+    <button [ngClass]="btnClass" style="padding: 8px 12px;" type="button" (click)="changeValue(-5)">
       <i class="fa fa-minus"></i>
     </button>
   </span>
@@ -11,7 +11,7 @@
           [(ngModel)]="progress">
 
   <span class="input-group-btn">
-    <button class="btn btn-primary" style="padding: 8px 12px;" type="button" (click)="changeValue(5)">
+    <button [ngClass]="btnClass" style="padding: 8px 12px;" type="button" (click)="changeValue(5)">
       <i class="fa fa-plus"></i>
     </button>
   </span>

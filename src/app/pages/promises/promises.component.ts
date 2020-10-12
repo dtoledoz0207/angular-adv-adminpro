@@ -12,14 +12,16 @@ export class PromisesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const promise = new Promise((resolve, reject) => {
+    this.getUsers().then(users => {
+      console.log(users);
+    });
 
+    /*const promise = new Promise((resolve, reject) => {
       if (false) {
         resolve('Finish promise');
       } else {
         reject('Error in promise');
       }
-
     });
 
     promise.then((message) => {
@@ -27,9 +29,19 @@ export class PromisesComponent implements OnInit {
     }).catch((err) => {
       console.log(err);
     });
+    console.log('End of Init function'); */
 
-    console.log('End of Init function');
+  }
 
+  getUsers() {
+
+    const promise = new Promise((resolve) => {
+      fetch('https://reqres.in/api/users')
+      .then((response) => response.json())
+      .then(body => resolve(body.data));
+    });
+
+    return promise;
   }
 
 }

@@ -14,8 +14,8 @@ export class LoginComponent {
   public formSubmitted:boolean = false;
 
   public loginForm = this.formBuilder.group({
-    email: ['test100@gmail.com', [Validators.required, Validators.email]],
-    password: ['123456', Validators.required],
+    email: [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
     rememberme: [false]
   });
 
@@ -25,6 +25,12 @@ export class LoginComponent {
     //this.router.navigateByUrl('/');
     this.userService.login(this.loginForm.value).subscribe(response => {
       console.log(response);
+
+      if (this.loginForm.get('rememberme').value) {
+        localStorage.setItem('email', this.loginForm.get('email').value);
+      } else {
+        localStorage.removeItem('email');
+      }
     }, ({error}) => {
       Swal.fire('Error', error.message, 'error');
     });

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { UserService } from '../../services/user.service';
+
+declare const gapi:any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public formSubmitted:boolean = false;
 
@@ -20,6 +22,10 @@ export class LoginComponent {
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
+
+  ngOnInit() {
+    this.renderButton();
+  }
 
   login() {
     //this.router.navigateByUrl('/');
@@ -33,6 +39,28 @@ export class LoginComponent {
       }
     }, ({error}) => {
       Swal.fire('Error', error.message, 'error');
+    });
+  }
+
+  onSuccess(googleUser) {
+    //console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    let id_token = googleUser.getAuthResponse().id_token;
+    console.log(id_token);
+  }
+
+  onFailure(error) {
+    console.log(error);
+  }
+
+  renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': this.onSuccess,
+      'onfailure': this.onFailure
     });
   }
 

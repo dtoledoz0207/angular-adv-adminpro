@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     rememberme: [false]
   });
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.renderButton();
@@ -76,7 +76,9 @@ export class LoginComponent implements OnInit {
       //console.log(id_token);
       this.userService.loginGoogle(id_token).subscribe(() => {
         //Navigate to dashboard
-        this.router.navigateByUrl('/');
+        this.ngZone.run(() => {
+          this.router.navigateByUrl('/');
+        });
       });
     }, (error) => {
       alert(JSON.stringify(error, undefined, 2));

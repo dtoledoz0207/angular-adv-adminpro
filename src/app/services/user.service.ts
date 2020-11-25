@@ -31,15 +31,15 @@ export class UserService {
       headers: {
         'x-token': token
       }
-    }).pipe(tap((response:any) => {
+    }).pipe(map((response:any) => {
 
-      const { uid, name, email, img, role, google } = response.user;
+      const { uid, name, email, img = '', role, google } = response.user;
 
       this.user = new User(name, email, '', img, google, role, uid);
 
       localStorage.setItem('token', response.token);
+      return true;
     }),
-    map(resp => true),
     catchError(error => of(false)));
   }
 

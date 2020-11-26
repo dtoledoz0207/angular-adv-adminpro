@@ -27,7 +27,12 @@ export class FileUploadService {
 
       console.log(response);
 
-      return 'image name';
+      if (response.ok) {
+        return response.fileName;
+      } else {
+        console.log(response.message);
+        return false;
+      }
 
     } catch (error) {
       console.log(error);

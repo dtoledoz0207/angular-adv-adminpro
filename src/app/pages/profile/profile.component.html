@@ -36,11 +36,14 @@
 
         <img src="" alt="">
 
-        <input type="file">
+        <input type="file" (change)="changeImage($event.target.files[0])">
 
         <br><br>
 
-        <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10">
+        <button type="button"
+                [disabled]="!imageToUpload"
+                class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                (click)="uploadImage()">
           <i class="fa fa-save"></i>
           Update photo
         </button>

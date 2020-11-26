@@ -26,9 +26,11 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log(this.profileForm.value);
-    this.userService.updateUser(this.profileForm.value).subscribe(response => {
-      console.log(response);
+    this.userService.updateUser(this.profileForm.value).subscribe(() => {
+      //console.log(response);
+      const {name, email} = this.profileForm.value;
+      this.user.name = name;
+      this.user.email = email;
     });
   }
 

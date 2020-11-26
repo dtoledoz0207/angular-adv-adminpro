@@ -24,12 +24,21 @@ export class UserService {
     this.googleInit();
   }
 
+  get token():string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid():string {
+    return this.user.uid || '';
+  }
+
+
+
   validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
 
     return this.http.get(`${base_url}/auth/renew`, {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(map((response:any) => {
 
@@ -47,6 +56,16 @@ export class UserService {
     return this.http.post(`${base_url}/users`, formData).pipe(tap((response: any) => {
       localStorage.setItem('token', response.token);
     }));
+  }
+
+  updateUser(data: {email:string, name: string, role: string}) {
+
+    data = {
+      ...data,
+      role: this.user.role
+    };
+
+    return this.http.put(`${base_url}/users/${this.uid}`, data, { headers: { 'x-token': this.token } });
   }
 
   login(formData: LoginForm) {

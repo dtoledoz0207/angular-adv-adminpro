@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { FileUploadService } from '../../services/file-upload.service';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -34,6 +35,10 @@ export class ProfileComponent implements OnInit {
       const {name, email} = this.profileForm.value;
       this.user.name = name;
       this.user.email = email;
+
+      Swal.fire('Success', 'Changes were saved', 'success');
+    }, ({error}) => {
+      Swal.fire('Error', error.message, 'error');
     });
   }
 
@@ -56,6 +61,10 @@ export class ProfileComponent implements OnInit {
   uploadImage() {
     this.fileUploadService.updatePhoto(this.imageToUpload, 'users', this.user.uid).then(img => {
       this.user.img = img;
+      Swal.fire('Success', 'Photo updated', 'success');
+    }).catch(error => {
+      console.log(error);
+      Swal.fire('Error', 'Something was wrong', 'error');
     });
   }
 

@@ -12,6 +12,9 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 
+// Maintenance
+import { UsersComponent } from './maintenance/users/users.component';
+
 
 const routes:Routes = [
   {
@@ -25,7 +28,10 @@ const routes:Routes = [
       {path: 'account-settings', component: AccountSettingsComponent, data: {title: 'Theme'}},
       {path: 'promises', component: PromisesComponent, data: {title: 'Promises'}},
       {path: 'rxjs', component: RxjsComponent, data: {title: 'Rxjs'}},
-      {path: 'profile', component: ProfileComponent, data: {title: 'My profile'}}
+      {path: 'profile', component: ProfileComponent, data: {title: 'My profile'}},
+
+      //Maintenance
+      {path: 'users', component: UsersComponent, data: {title: 'Users app'}}
     ]
   }
 ];

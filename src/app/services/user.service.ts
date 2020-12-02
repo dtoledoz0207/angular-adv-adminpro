@@ -1,12 +1,17 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegisterForm } from '../interfaces/register-form.interface';
+
 import { environment } from '../../environments/environment';
+
 import { LoginForm } from '../interfaces/login-form.interface';
+import { RegisterForm } from '../interfaces/register-form.interface';
+import { LoadUsers } from '../interfaces/load-users.interface';
+
+import { User } from '../models/user.model';
+
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
 
 const base_url = environment.base_url;
 
@@ -30,6 +35,14 @@ export class UserService {
 
   get uid():string {
     return this.user.uid || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
 
@@ -101,5 +114,10 @@ export class UserService {
         this.router.navigateByUrl('/login');
       });
     });
+  }
+
+  loadUsers(from:number = 0) {
+    const url = `${base_url}/users?from_the=${from}`;
+    return this.http.get<LoadUsers>(url, this.headers);
   }
 }

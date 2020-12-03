@@ -44,8 +44,8 @@
                         <td>{{user.name}}</td>
                         <td>{{user.role}}</td>
                         <td>
-                          <label class="label label-danger">Google</label>
-                          <label class="label label-info">Email</label>
+                          <label *ngIf="user.google" class="label label-danger">Google</label>
+                          <label *ngIf="!user.google" class="label label-info">Email</label>
                         </td>
                         <td class="text-nowrap">
                             <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
@@ -57,9 +57,9 @@
             </table>
         </div>
 
-        <button class="btn btn-secondary">Previous</button>
+        <button class="btn btn-secondary" (click)="changePage(-5)">Previous</button>
         &nbsp;
-        <button class="btn btn-secondary">Next</button>
+        <button class="btn btn-secondary" (click)="changePage(5)">Next</button>
       </div>
     </div>
   </div>

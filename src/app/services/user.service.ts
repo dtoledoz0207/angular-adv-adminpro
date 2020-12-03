@@ -10,7 +10,7 @@ import { LoadUsers } from '../interfaces/load-users.interface';
 import { User } from '../models/user.model';
 
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
@@ -118,6 +118,12 @@ export class UserService {
 
   loadUsers(from:number = 0) {
     const url = `${base_url}/users?from_the=${from}`;
-    return this.http.get<LoadUsers>(url, this.headers);
+    return this.http.get<LoadUsers>(url, this.headers).pipe(map(resp => {
+      const users = resp.users.map(user => new User(user.name, user.email, '', user.img, user.google, user.role, user.uid));
+      return {
+        total: resp.total,
+        users
+      };
+    }));
   }
 }

@@ -32,7 +32,7 @@
                         <th class="w100">Avatar</th>
                         <th>Email</th>
                         <th>Name</th>
-                        <th class="w100">Role</th>
+                        <th class="w140">Role</th>
                         <th class="w100">Auth</th>
                         <th class="text-nowrap w100">Actions</th>
                     </tr>
@@ -44,13 +44,17 @@
                         </td>
                         <td>{{user.email}}</td>
                         <td>{{user.name}}</td>
-                        <td>{{user.role}}</td>
+                        <td>
+                          <select class="form-control" [(ngModel)]="user.role" (change)="changeRole(user)">
+                            <option value="ADMIN_ROLE">Admin</option>
+                            <option value="USER_ROLE">User</option>
+                          </select>
+                        </td>
                         <td>
                           <label *ngIf="user.google" class="label label-danger">Google</label>
                           <label *ngIf="!user.google" class="label label-info">Email</label>
                         </td>
                         <td class="text-nowrap text-center">
-                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                             <a data-toggle="tooltip" data-original-title="Delete" class="cursor" (click)="deleteUser(user)">
                               <i class="fa fa-close text-danger"></i>
                             </a>

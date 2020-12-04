@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input type="text" class="form-control" placeholder="Search user...">
+        <input type="text" class="form-control" placeholder="Search user..." (keyup)="search(txtTerm.value)" #txtTerm>
       </div>
     </div>
   </div>
@@ -59,9 +59,12 @@
             </table>
         </div>
 
-        <button class="btn btn-secondary" (click)="changePage(-5)">Previous</button>
-        &nbsp;
-        <button class="btn btn-secondary" (click)="changePage(5)">Next</button>
+        <div *ngIf="txtTerm.value.length === 0">
+          <button class="btn btn-secondary" (click)="changePage(-5)">Previous</button>
+            &nbsp;
+          <button class="btn btn-secondary" (click)="changePage(5)">Next</button>
+        </div>
+
       </div>
     </div>
   </div>

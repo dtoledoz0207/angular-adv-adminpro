@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { SearchesService } from '../../../services/searches.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -12,10 +13,11 @@ export class UsersComponent implements OnInit {
 
   public totalUsers:number = 0;
   public users:User[] = [];
+  public usersTemp:User[] = [];
   public from:number = 0;
   public loading:boolean = true;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private searchesService: SearchesService) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -27,6 +29,7 @@ export class UsersComponent implements OnInit {
     this.userService.loadUsers(this.from).subscribe(({total, users}) => {
       this.totalUsers = total;
       this.users = users;
+      this.usersTemp = users;
 
       this.loading = false;
     });
@@ -42,6 +45,17 @@ export class UsersComponent implements OnInit {
     }
 
     this.loadUsers();
+  }
+
+  search(term:string) {
+
+    if (term.length === 0) {
+      return this.users = this.usersTemp;
+    }
+
+    this.searchesService.search('users', term).subscribe(results => {
+      this.users = results;
+    });
   }
 
 }

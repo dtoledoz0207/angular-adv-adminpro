@@ -61,6 +61,11 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user:User) {
+
+    if (user.uid === this.userService.uid) {
+      return Swal.fire('Error', 'Can not delete yourself', 'error');
+    }
+
     Swal.fire({
       title: 'Delete user',
       text: `Do you want to delete at ${user.name}?`,

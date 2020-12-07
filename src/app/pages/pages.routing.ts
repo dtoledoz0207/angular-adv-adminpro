@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 // Maintenance
 import { UsersComponent } from './maintenance/users/users.component';
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
 
 
 const routes:Routes = [
@@ -31,7 +32,8 @@ const routes:Routes = [
       {path: 'profile', component: ProfileComponent, data: {title: 'My profile'}},
 
       //Maintenance
-      {path: 'users', component: UsersComponent, data: {title: 'Users app'}}
+      {path: 'users', component: UsersComponent, data: {title: 'Users maintenance'}},
+      {path: 'hospitals', component: HospitalsComponent, data: {title: 'Hospitals maintenance'}}
     ]
   }
 ];

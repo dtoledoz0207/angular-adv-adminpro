@@ -29,7 +29,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Photo</th>
+                        <th class="w100">Photo</th>
                         <th>Name</th>
                         <th class="text-nowrap">Actions</th>
                     </tr>
@@ -37,7 +37,9 @@
                 <tbody>
 
                     <tr *ngFor="let hospital of hospitals">
-                        <td>{{hospital.img}}</td>
+                        <td class="text-center">
+                          <img [src]="hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor">
+                        </td>
                         <td>
                           <input type="text" class="form-control" placeholder="Hospital name" [(ngModel)]="hospital.name" />
                         </td>

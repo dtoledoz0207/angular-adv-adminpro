@@ -25,12 +25,12 @@ export class FileUploadService {
         body: formData
       }).then(res => res.json());
 
-      console.log(response);
+      //console.log(response);
 
       if (response.ok) {
         return response.fileName;
       } else {
-        console.log(response.message);
+        //console.log(response.message);
         return false;
       }
 

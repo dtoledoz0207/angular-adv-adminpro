@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input type="text" class="form-control" placeholder="Search hospital...">
+        <input type="text" class="form-control" placeholder="Search hospital..." #txtTerm (keyup)="search(txtTerm.value)">
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
 
                     <tr *ngFor="let hospital of hospitals">
                         <td class="text-center">
-                          <img [src]="hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor" (click)="openModal(hospital)">
+                          <img [src]="hospital.img | image: 'hospitals'" [alt]="hospital.name" class="w100 cursor" (click)="openModal(hospital)">
                         </td>
                         <td>
                           <input type="text" class="form-control" placeholder="Hospital name" [(ngModel)]="hospital.name" />

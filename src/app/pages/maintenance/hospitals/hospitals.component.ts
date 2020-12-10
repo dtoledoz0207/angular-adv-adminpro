@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Hospital } from 'src/app/models/hospital.model';
 import { ModalImageService } from '../../../services/modal-image.service';
 import { HospitalService } from '../../../services/hospital.service';
+import { SearchesService } from 'src/app/services/searches.service';
 
 
 @Component({
@@ -20,11 +21,22 @@ export class HospitalsComponent implements OnInit {
 
   public imgSub:Subscription;
 
-  constructor(private hospitalService:HospitalService, private modalImageService: ModalImageService) { }
+  constructor(private hospitalService:HospitalService, private modalImageService: ModalImageService, private searchesService: SearchesService) { }
 
   ngOnInit(): void {
     this.loadHospitals();
     this.imgSub = this.modalImageService.newImage.pipe(delay(200)).subscribe(img => this.loadHospitals());
+  }
+
+  search(term:string) {
+
+    if (term.length === 0) {
+      return this.loadHospitals();
+    }
+
+    this.searchesService.search('hospitals', term).subscribe(results => {
+      this.hospitals = results;
+    });
   }
 
   loadHospitals() {

@@ -13,6 +13,7 @@ export class DoctorComponent implements OnInit {
 
   public doctorForm: FormGroup;
   public hospitals: Hospital[] = [];
+  public hospitalSelected: Hospital;
 
   constructor(private formBuilder: FormBuilder, private hospitalService: HospitalService) { }
 
@@ -23,6 +24,10 @@ export class DoctorComponent implements OnInit {
     });
 
     this.loadHospitals();
+
+    this.doctorForm.get('hospital').valueChanges.subscribe(hospitalId => {
+      this.hospitalSelected = this.hospitals.find(h => h.id === hospitalId);
+    });
   }
 
   loadHospitals() {

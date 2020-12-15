@@ -8,11 +8,11 @@
 
             <form class="form-horizontal p-t-20" [formGroup]="doctorForm" (submit)="saveDoctor()">
 
-              <div class="form-group row">
+              <div class="form-group row" *ngIf="doctorSelected">
                 <label for="exampleInputuname3" class="col-sm-3 control-label">Photo</label>
                 <div class="col-sm-9">
                     <div class="input-group">
-                        <img class="w200" src="http://localhost:3001/api/upload/doctors/4dd8b3eb-8c06-410e-bc3e-db5715478d61.jpg">
+                        <img class="w200" [src]="doctorSelected.img | image: 'doctors'">
                     </div>
                 </div>
             </div>

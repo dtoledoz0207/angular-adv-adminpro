@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Hospital } from '../../../models/hospital.model';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
+import { DoctorService } from '../../../services/doctor.service';
 import { HospitalService } from '../../../services/hospital.service';
+
+import { Hospital } from '../../../models/hospital.model';
+import { Doctor } from '../../../models/doctor.model';
 
 @Component({
   selector: 'app-doctor',
@@ -13,13 +19,15 @@ export class DoctorComponent implements OnInit {
 
   public doctorForm: FormGroup;
   public hospitals: Hospital[] = [];
+
+  public doctorSelected: Doctor;
   public hospitalSelected: Hospital;
 
-  constructor(private formBuilder: FormBuilder, private hospitalService: HospitalService) { }
+  constructor(private formBuilder: FormBuilder, private hospitalService: HospitalService, private doctorService: DoctorService, private router: Router) { }
 
   ngOnInit(): void {
     this.doctorForm = this.formBuilder.group({
-      name: ['Hector', Validators.required],
+      name: ['', Validators.required],
       hospital: ['', Validators.required]
     });
 
@@ -37,7 +45,11 @@ export class DoctorComponent implements OnInit {
   }
 
   saveDoctor() {
-    console.log(this.doctorForm.value);
+    const {name} = this.doctorForm.value;
+    this.doctorService.createDoctor(this.doctorForm.value).subscribe((response:any) => {
+      Swal.fire('Doctor created', `${name} created successfully`, 'success');
+      this.router.navigateByUrl(`/dashboard/doctor/${response.doctor.id}`);
+    });
   }
 
 }

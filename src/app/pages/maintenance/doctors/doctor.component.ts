@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { DoctorService } from '../../../services/doctor.service';
 import { HospitalService } from '../../../services/hospital.service';
@@ -23,9 +23,14 @@ export class DoctorComponent implements OnInit {
   public doctorSelected: Doctor;
   public hospitalSelected: Hospital;
 
-  constructor(private formBuilder: FormBuilder, private hospitalService: HospitalService, private doctorService: DoctorService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private hospitalService: HospitalService, private doctorService: DoctorService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe(({id}) => {
+      this.loadDoctor(id);
+    });
+
     this.doctorForm = this.formBuilder.group({
       name: ['', Validators.required],
       hospital: ['', Validators.required]
@@ -35,6 +40,13 @@ export class DoctorComponent implements OnInit {
 
     this.doctorForm.get('hospital').valueChanges.subscribe(hospitalId => {
       this.hospitalSelected = this.hospitals.find(h => h.id === hospitalId);
+    });
+  }
+
+  loadDoctor(idDoctor:string) {
+    this.doctorService.getDoctorById(idDoctor).subscribe(doctor => {
+      console.log(doctor);
+      this.doctorSelected = doctor;
     });
   }
 

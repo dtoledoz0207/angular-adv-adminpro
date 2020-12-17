@@ -8,6 +8,7 @@ import { HospitalService } from '../../../services/hospital.service';
 
 import { Hospital } from '../../../models/hospital.model';
 import { Doctor } from '../../../models/doctor.model';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-doctor',
@@ -39,7 +40,7 @@ export class DoctorComponent implements OnInit {
     this.loadHospitals();
 
     this.doctorForm.get('hospital').valueChanges.subscribe(hospitalId => {
-      this.hospitalSelected = this.hospitals.find(h => h._id === hospitalId);
+      this.hospitalSelected = this.hospitals.find(h => h.id === hospitalId);
     });
   }
 
@@ -49,7 +50,7 @@ export class DoctorComponent implements OnInit {
       return;
     }
 
-    this.doctorService.getDoctorById(idDoctor).subscribe(doctor => {
+    this.doctorService.getDoctorById(idDoctor).pipe(delay(200)).subscribe(doctor => {
       //console.log(doctor);
       if (!doctor) {
         return this.router.navigateByUrl('/dashboard/doctors');

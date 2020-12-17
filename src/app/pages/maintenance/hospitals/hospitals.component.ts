@@ -52,13 +52,13 @@ export class HospitalsComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(hospital:Hospital) {
-    this.hospitalService.updateHospital(hospital.id, hospital.name).subscribe(() => {
+    this.hospitalService.updateHospital(hospital._id, hospital.name).subscribe(() => {
       Swal.fire('Updated', hospital.name, 'success');
     });
   }
 
   deleteHospital(hospital:Hospital) {
-    this.hospitalService.deleteHospital(hospital.id).subscribe(() => {
+    this.hospitalService.deleteHospital(hospital._id).subscribe(() => {
       this.loadHospitals();
       Swal.fire('Deleted', hospital.name, 'success');
     });
@@ -81,7 +81,7 @@ export class HospitalsComponent implements OnInit, OnDestroy {
   }
 
   openModal(hospital: Hospital) {
-    this.modalImageService.openModal('hospitals', hospital.id, hospital.img);
+    this.modalImageService.openModal('hospitals', hospital._id, hospital.img);
   }
 
 }

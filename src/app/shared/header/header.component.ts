@@ -19,4 +19,8 @@ export class HeaderComponent {
   logout() {
     this.userService.logout();
   }
+
+  search(term: string) {
+    console.log(term);
+  }
 }
